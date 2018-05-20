@@ -28,13 +28,8 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <select class="form-control" style="font-size:13px;" id="vidTypeId">
-                            <option value="0" selected="">Video Category</option>
-                            @foreach (var item in VideoType)
-                            {
-                                <option value="@item.vidTypeId">@item.vidTypeName</option>
-                            }
-                        </select>
+                        @Html.DropDownListFor(m => m.vidTypeId, new SelectList(VideoType, "vidTypeId", "vidTypeName", 0),
+                                "Select", new { @class = "form-control", required = "true"})
                     </div>
                 </div>
                 <div class="col-md-3">

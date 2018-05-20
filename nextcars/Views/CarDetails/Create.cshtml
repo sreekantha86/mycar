@@ -1,0 +1,132 @@
+﻿@model nextcars.domain.CarDiamention
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="margin-top:10px;padding-top:5px;">
+    <div class="container">
+        <form method="post" style="font-size:13px;font-family:Ubuntu, sans-serif;">
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Car Model</b></label>
+                    <div class="form-group">
+                        <input id="txtCar" class="form-control" type="text" placeholder="Type a model name" style="font-size:13px;" autocomplete="off">
+                        @Html.HiddenFor(m => m.carId)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Length (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Length, new { @class= "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })                       
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Width (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Width, new { @class = "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Height (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Height, new { @class = "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>WheelBase (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.WheelBase, new { @class = "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Ground Clerance (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.GroundClerance, new { @class = "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Front Track (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.FrontTrack, new { @class = "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Rear Track (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.RearTrack, new { @class = "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label><b>Fuel Tank (mm)</b></label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.FuelTank, new { @class = "form-control", @placeholder = "Type a model name", @style = "font-size:13px;", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="form-group"><button class="btn btn-primary" type="submit" style="font-size:16px;">Save</button></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+        $(function () {
+            $("#txtCar").typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 3,
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Home/AutoComplete/',
+                        data: "{ 'prefix': '" + request + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            items = [];
+                            map = {};
+                            $.each(data, function (i, item) {
+                                var id = item.carId;
+                                var name = item.carName;
+                                map[name] = { id: id, name: name };
+                                items.push(name);
+                            });
+                            response(items);
+                            $(".dropdown-menu").css("height", "auto");
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                updater: function (item) {
+                    $('#carId').val(map[item].id);
+                    return item;
+                }
+            });
+        });
+</script>
+

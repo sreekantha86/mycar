@@ -16,7 +16,9 @@ namespace nextcars.Controllers
             GetBodyTypes();
             GetFuel();
             GetHotLaunch();
-            GetVideoGallery();
+            GetVideoGallery_TestRide();
+            GetVideoGallery_Comparison();
+            GetVideoGallery_CrashTest();
             return base.BeginExecuteCore(callback, state);
         }
         public void GetManufactures()
@@ -39,10 +41,20 @@ namespace nextcars.Controllers
             HomeRepository repo = new HomeRepository();
             Session["HotLaunch"] = repo.GetHotLaunch();
         }
-        public void GetVideoGallery()
+        public void GetVideoGallery_TestRide()
         {
             HomeRepository repo = new HomeRepository();
-            Session["TestDrives"] = repo.GetVideoGallery();
+            Session["TestDrives"] = repo.GetVideoGallery(2);
+        }
+        public void GetVideoGallery_Comparison()
+        {
+            HomeRepository repo = new HomeRepository();
+            Session["ComparisonVideos"] = repo.GetVideoGallery(4);
+        }
+        public void GetVideoGallery_CrashTest()
+        {
+            HomeRepository repo = new HomeRepository();
+            Session["CrashTestVideos"] = repo.GetVideoGallery(5);
         }
     }
 }

@@ -30,8 +30,7 @@ namespace nextcars.Controllers
         {
             if(ModelState.IsValid)
             {
-                model.vidURL = model.vidURL.Replace("https://youtu.be/", "https://www.youtube.com/embed/");
-                model.vidTypeId = 2;
+                model.vidURL = model.vidURL.Replace("https://youtu.be/", "https://www.youtube.com/embed/");   
                 MasterRepository repo = new MasterRepository();
                 repo.SaveCarVideo(model);
                 return RedirectToAction("Create");

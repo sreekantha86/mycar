@@ -7,6 +7,7 @@
     List<nextcars.domain.Fuel> fuel = (List<nextcars.domain.Fuel>)Session["Fuel"];
     List<nextcars.domain.Hotlaunch> hotLaunch = (List<nextcars.domain.Hotlaunch>)Session["HotLaunch"];
     List<nextcars.domain.VideoGallery> TestDrives = (List<nextcars.domain.VideoGallery>)Session["TestDrives"];
+    List<nextcars.domain.VideoGallery> CrashTest = (List<nextcars.domain.VideoGallery>)Session["CrashTestVideos"];
 }
 <script>
     $(function () {
@@ -148,9 +149,6 @@
                                     @for (int i = 0; i < 4; i++)
                                     {
                                         <div class="col-md-3">
-                                            @*<div class="embed-responsive embed-responsive-16by9">
-                                                    <iframe class="embed-responsive-item" src="@TestDrives[i].vidURL" allowfullscreen></iframe>
-                                                </div>*@
                                             <div class="embed-responsive embed-responsive-16by9 youtube" data-embed="@TestDrives[i].VideoId">
                                                 <div class="play-button"></div>
                                             </div>
@@ -226,13 +224,13 @@
                         <div class="collapse item-5" role="tabpanel" data-parent="#accordion-1">
                             <div class="card-body">
                                 <div class="row">
-                                    @for (int i = 0; i < 4; i++)
+                                    @for (int i = 0; i < CrashTest.Count; i++)
                                     {
                                         <div class="col-md-3">
                                             @*<div class="embed-responsive embed-responsive-16by9">
                                                     <iframe class="embed-responsive-item" src="@TestDrives[i].vidURL" allowfullscreen></iframe>
                                                 </div>*@
-                                            <div class="embed-responsive embed-responsive-16by9 youtube" data-embed="@TestDrives[i].VideoId">
+                                            <div class="embed-responsive embed-responsive-16by9 youtube" data-embed="@CrashTest[i].VideoId">
                                                 <div class="play-button"></div>
                                             </div>
                                         </div>

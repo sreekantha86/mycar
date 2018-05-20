@@ -61,7 +61,7 @@ namespace nextcars.dal
                 return connection.Query<Hotlaunch>(query).ToList();
             }
         }
-        public List<VideoGallery> GetVideoGallery()
+        public List<VideoGallery> GetVideoGallery(int? VideoType)
         {
             using (IDbConnection connection = OpenConnection(dataConnection))
             {
@@ -70,7 +70,12 @@ namespace nextcars.dal
                 inner join Car B on A.carId = B.carId
                 inner join Manufacturer C on B.mfId = C.mfId
                 inner join BodyType D on B.btId = D.btId
-                Order by A.createDate Desc");
+                where 1=1");
+                if(VideoType != null)
+                {
+                    query += " and A.vidTypeId = " + (VideoType ?? 0).ToString();
+                }
+                query += " Order by A.createDate Desc";
 
                 return connection.Query<VideoGallery>(query).ToList();
             }
@@ -94,10 +99,10 @@ namespace nextcars.dal
                 {
                     query += " AND A.carId = " + (model ?? 0).ToString();
                 }
-                //if (category != null && category != 0)
-                //{
-                //    query += " AND A.carId = " + (category ?? 0).ToString();
-                //}
+                if (category != null && category != 0)
+                {
+                    query += " AND A.vidTypeId = " + (category ?? 0).ToString();
+                }
                 query += " ORDER BY createDate Desc";
                 return connection.Query<VideoGallery>(query).ToList();
             }

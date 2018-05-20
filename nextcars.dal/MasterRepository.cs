@@ -25,5 +25,34 @@ namespace nextcars.dal
                 return rowsAffected;
             }
         }
+        public int SaveCarDiamention(CarDiamention model)
+        {
+            using (IDbConnection connection = OpenConnection(dataConnection))
+            {
+                string sql = @"INSERT INTO CarDiamention(
+                carId
+                ,Length
+                ,Width
+                ,Height
+                ,WheelBase
+                ,GroundClerance
+                ,FrontTrack
+                ,RearTrack
+                ,FuelTank)
+                VALUES(
+                @carId
+                ,@Length
+                ,@Width
+                ,@Height
+                ,@WheelBase
+                ,@GroundClerance
+                ,@FrontTrack
+                ,@RearTrack
+                ,@FuelTank)";
+
+                int rowsAffected = connection.Execute(sql, model);
+                return rowsAffected;
+            }
+        }
     }
 }
