@@ -1,0 +1,53 @@
+﻿@model List<nextcars.domain.VideoGallery>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="embed-responsive embed-responsive-16by9 youtube" data-embed="@item.VideoId">
+                <div class="play-button"></div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="col-md-12"></div>
+}
+@*<div class="col-md-3"></div>
+<div class="col-md-3"></div>
+<div class="col-md-3"></div>
+<div class="col-md-3"></div>*@
+
+<script>
+    $(function () {
+        initVideos();
+    });
+    function initVideos()
+    {
+        var youtube = document.querySelectorAll(".youtube");
+
+        for (var i = 0; i < youtube.length; i++) {
+            // add the code here
+            var source = "https://img.youtube.com/vi/" + youtube[i].dataset.embed + "/sddefault.jpg";
+            var image = new Image();
+            image.src = source;
+            image.addEventListener("load", function () {
+                youtube[i].appendChild(image);
+            }(i));
+
+            youtube[i].addEventListener("click", function () {
+
+                var iframe = document.createElement("iframe");
+
+                iframe.setAttribute("frameborder", "0");
+                iframe.setAttribute("allowfullscreen", "");
+                iframe.setAttribute("src", "https://www.youtube.com/embed/" + this.dataset.embed + "?rel=0&showinfo=0&autoplay=1");
+
+                this.innerHTML = "";
+                this.appendChild(iframe);
+            });
+        }
+    }
+</script>

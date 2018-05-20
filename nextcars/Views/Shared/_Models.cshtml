@@ -1,0 +1,15 @@
+﻿@model List<nextcars.domain.Car>
+<select class="form-control" style="font-size:13px;" id="Models">    
+    @if (Model != null)
+    {
+        <option value="0" selected>Choose Model</option>
+        foreach (var item in Model)
+        {
+            <option value="@item.carId">@item.carName</option>
+        }
+    }
+    else
+    {
+        <option value="0" selected>select Manufacturer</option>
+    }
+</select>

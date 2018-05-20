@@ -1,0 +1,58 @@
+﻿@{
+    List<nextcars.domain.Manufacture> manufacture = (List<nextcars.domain.Manufacture>)Session["Manufacture"];
+}
+<!-- ________________________LATEST CARS SECTION _______________________-->
+<div class="latestcars">
+    <h1 class="text-center">&bullet; POPULAR CAR BRANDS &bullet;</h1>
+    <ul class="nav nav-tabs navbar-left latest-navleft">
+        <li role="presentation" class="li-sortby"><span class="sortby">SORT BY: </span></li>
+        <li data-filter=".RECENT" role="presentation"><a href="#mostrecent" class="prcBtnR">MOST RECENT </a></li>
+        <li data-filter=".POPULAR" role="presentation"><a href="#mostpopular" class="prcBtnR">MOST POPULAR </a></li>
+        <li role="presentation"><a href="#" class="alphSort">ALPHABETICAL </a></li>
+        <li data-filter=".HPRICE" role="presentation"><a href="#" class="prcBtnH">HIGHEST PRICE </a></li>
+        <li data-filter=".LPRICE" role="presentation"><a href="#" class="prcBtnL">LOWEST  PRICE </a></li>
+        <li id="hideonmobile">
+    </ul>
+</div>
+<br>
+<br>
+<!-- ________________________Latest Cars Image Thumbnail________________-->
+<div class="grid">
+    <div class="row">
+        @foreach (var item in manufacture)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="txthover">
+                    <img src="~/Content/manufact_logo/@item.mfLogo" alt="@item.mfShortName" style="width:auto;height:220px;">
+                    <div class="txtcontent">
+                        <div class="stars">
+                            @*<div class="glyphicon glyphicon-star"></div>
+                            <div class="glyphicon glyphicon-star"></div>
+                            <div class="glyphicon glyphicon-star"></div>*@
+                            <ul class="logreg">
+                                <li><a href="#">Official Site </a></li>
+                            </ul>
+                        </div>
+                        <div class="simpletxt">
+                            <h3 class="name">@item.mfName</h3>
+                            <p>
+                                @item.mfDescription
+                            </p>
+                            <h4 class="price"> 1000&euro;</h4>
+                            <button>READ MORE</button><br>
+                            <div class="wishtxt">
+                                <p class="paragraph1"> Add to Wishlist <span class="glyphicon glyphicon-heart"></span> </p>
+                                <p class="paragraph2">Compare <span class="icon"><img src="~/Content/image/compicon.png" alt="compicon"></span></p>
+                            </div>
+                        </div>
+                        <div class="stars2">
+                            <div class="glyphicon glyphicon-star"></div>
+                            <div class="glyphicon glyphicon-star"></div>
+                            <div class="glyphicon glyphicon-star"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }        
+    </div>
+</div>

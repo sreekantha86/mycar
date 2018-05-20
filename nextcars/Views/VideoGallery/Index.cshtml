@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    List<nextcars.domain.Manufacture> manufacture = (List<nextcars.domain.Manufacture>)Session["Manufacture"];
+    List<nextcars.domain.VideoType> VideoType = (List<nextcars.domain.VideoType>)Session["VideoCategory"];
+}
+<div style="margin-top:10px;padding-top:5px;">
+    <div class="container">
+        <form method="post" style="font-size:13px;font-family:Ubuntu, sans-serif;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select id="manufacturer" class="form-control" style="font-size:13px;" onchange="FillModel()">
+                            <option value="0" selected="">Manufacturer</option>
+                            @foreach (var item in manufacture)
+                            {
+                                <option value="@item.mfId">@item.mfShortName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group" id="divModel">
+                        @Html.Partial("_Models")
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" style="font-size:13px;" id="Category">
+                        <option value="0" selected="">Video Category</option>
+                        @foreach (var item in VideoType)
+                        {
+                            <option value="@item.vidTypeId">@item.vidTypeName</option>
+                        }
+                    </select>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group"><button class="btn btn-primary" type="button" style="font-size:16px;" onclick="SearchVideo()">Search Video</button></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <div class="container">
+        <div class="row" id="videoArea">
+            @Html.Partial("_Videos")
+        </div>
+    </div>
+</div>
+
+<script>
+    function FillModel() {
+        var id = $("#manufacturer").val();
+        var url = '@Url.Action("FillCars","Home")' + "?Id=" + id;
+        $("#divModel").load(url);
+    }
+
+    function SearchVideo()
+    {
+        var mf = $("#manufacturer").val();
+        var model = $("#Models").val();
+        var category = $("#Category").val();
+        var url = '@Url.Action("ShowVideos", "VideoGallery")' + "?mfId=" + mf + "&model=" + model + "&category=" + category;
+        $("#videoArea").load(url);
+    }
+</script>
